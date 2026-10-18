@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReaPCBooster - Sürücü Yöneticisi</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Left Navigation Rail -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <button class="menu-btn" title="Menü">
+          <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <nav class="nav-menu">
+        <button class="nav-item active" data-tab="tab-scan">
+          <div class="nav-icon target-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+          </div>
+          <span>Tara</span>
+        </button>
+
+        <button class="nav-item" data-tab="tab-boost">
+          <div class="nav-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></svg>
+          </div>
+          <span>Hızlandır</span>
+        </button>
+
+        <button class="nav-item" data-tab="tab-tools">
+          <div class="nav-icon relative">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+            <span class="yellow-dot"></span>
+          </div>
+          <span>Araçlar</span>
+        </button>
+
+        <button class="nav-item" data-tab="tab-backup">
+          <div class="nav-icon relative">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span class="yellow-dot"></span>
+          </div>
+          <span>Yedekleme</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="free-badge">
+          <span>%100 ÖZGÜR</span>
+          <small>Limitsiz Sürüm</small>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Title Bar -->
+      <header class="title-bar">
+        <div class="app-branding">
+          <span class="brand-title">ReaPCBooster</span>
+          <span class="brand-version">ÖZGÜR SÜRÜM</span>
+        </div>
+        <div class="window-controls">
+          <span class="win-btn" title="Küçült">&#8722;</span>
+          <span class="win-btn" title="Büyüt">&#9633;</span>
+          <span class="win-btn win-close" title="Kapat" onclick="window.close()">&#10005;</span>
+        </div>
+      </header>
+
+      <!-- TAB 1: Scan Home & Scanning View -->
+      <section id="tab-scan" class="tab-pane active">
+        <!-- Initial Home Screen -->
+        <div id="scan-home-view" class="center-content">
+          <div class="status-pill">
+            <span class="info-icon">i</span>
+            <span id="home-status-text">Sürücülerin durumunu kontrol etmek için tarayın!</span>
+          </div>
+
+          <div class="scanner-container">
+            <button id="btn-big-scan" class="big-scan-circle">
+              <div class="circle-ring"></div>
+              <div class="circle-ring-inner"></div>
+              <div class="scan-label">TARA</div>
+            </button>
+          </div>
+
+          <!-- Mini Hardware Rail on Right -->
+          <div class="mini-hardware-rail">
+            <div class="hw-icon" title="Ekran & GPU">&#128187;</div>
+            <div class="hw-icon" title="Windows İşletim Sistemi">&#9724;</div>
+            <div class="hw-icon" title="İşlemci (CPU)">&#9881;</div>
+            <div class="hw-icon" title="Ağ & Ses Kartları">&#9889;</div>
+            <div class="hw-icon" title="Bellek & Depolama">&#9776;</div>
+          </div>
+        </div>
+
+        <!-- Scanning In-Progress View -->
+        <div id="scan-progress-view" class="center-content hidden">
+          <div class="scan-radar-wrapper">
+            <div class="radar-sweep"></div>
+            <div class="scan-percent" id="scan-percent">0%</div>
+          </div>
+          <div class="scan-status-title" id="scan-status-title">Donanımlar taranıyor...</div>
+          <div class="scan-status-detail" id="scan-status-detail">Sistem aygıtları listeleniyor</div>
+        </div>
+
+        <!-- Scan Results View -->
+        <div id="scan-results-view" class="results-container hidden">
+          <div class="results-header">
+            <div class="results-summary">
+              <span class="highlight-red" id="res-outdated-count">0</span> aygıt sürücüsü güncel değil & 
+              <span class="highlight-green" id="res-ok-count">0</span> sürücü güncel
+            </div>
+            <div class="results-actions">
+              <button id="btn-update-all" class="btn-primary-red">
+                Şimdi Güncelle
+                <span class="btn-arrow">&#9662;</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="unlimited-banner">
+            <div class="banner-icon">&#128737;</div>
+            <div class="banner-text">
+              Tüm sürücüler doğrudan resmi Microsoft Güncelleme Kataloğu üzerinden limitsiz ve ücretsiz güncellenir.
+            </div>
+            <button class="btn-banner-action" id="btn-refresh-scan">Yeniden Tara</button>
+          </div>
+
+          <div class="results-list-toolbar">
+            <label class="select-all-label">
+              <input type="checkbox" id="chk-select-all" checked>
+              <span>Eski Sürücüler (<span id="res-list-count">0</span>)</span>
+            </label>
+            <div class="search-box-wrapper">
+              <input type="text" id="search-filter" placeholder="Aygıt ara...">
+            </div>
+          </div>
+
+          <div class="driver-items-list" id="driver-items-list">
+            <!-- Dynamic Driver Rows -->
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: Hızlandır (Boost) -->
+      <section id="tab-boost" class="tab-pane">
+        <div class="boost-cards-grid">
+          <!-- Card 1: Game Boost -->
+          <div class="boost-card">
+            <div class="gauge-dial">
+              <div class="dial-meter" id="game-dial">
+                <div class="dial-needle" id="game-needle"></div>
+              </div>
+              <div class="dial-status" id="game-status-text">KAPALI</div>
+            </div>
+            <h3>Oyun Hızlandırma</h3>
+            <p class="card-desc">Oyun performansını artırmak için yüksek güç profilini açar ve sistem gecikmelerini düşürür.</p>
+            <button id="btn-boost-game" class="btn-boost-action">Süper Hızlandırma</button>
+          </div>
+
+          <!-- Card 2: Network Boost -->
+          <div class="boost-card">
+            <div class="gauge-dial globe-dial">
+              <div class="globe-circle">
+                <svg viewBox="0 0 24 24" width="48" height="48" stroke="#61afef" stroke-width="1.5" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              </div>
+            </div>
+            <h3>İnternet Hızlandırma</h3>
+            <p class="card-desc">DNS önbelleğini temizler, ağ soketlerini yeniler ve bağlantı tepki süresini iyileştirir.</p>
+            <button id="btn-boost-network" class="btn-boost-action">Şimdi Yükselt</button>
+          </div>
+
+          <!-- Card 3: System Boost -->
+          <div class="boost-card">
+            <div class="gauge-dial sweep-dial">
+              <div class="sweep-circle">
+                <svg viewBox="0 0 24 24" width="48" height="48" stroke="#98c379" stroke-width="1.5" fill="none"><path d="M12 2v10l4 4"></path><circle cx="12" cy="12" r="9"></circle></svg>
+              </div>
+            </div>
+            <h3>Sistem Eniyileme</h3>
+            <p class="card-desc">Gereksiz geçici (temp) dosyaları temizler ve disk alanını anında boşaltır.</p>
+            <button id="btn-boost-clean" class="btn-boost-action btn-secondary">Şimdi Çalıştır</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: Araçlar (Tools) -->
+      <section id="tab-tools" class="tab-pane">
+        <div class="tools-grid">
+          <div class="tool-item-card" id="card-restore-point">
+            <div class="tool-icon">&#9881;</div>
+            <div class="tool-info">
+              <h4>Sistem Geri Yükleme Noktası</h4>
+              <p>Sürücü güncellemesi öncesinde Windows geri yükleme noktası oluşturun.</p>
+            </div>
+            <button class="btn-tool" id="btn-create-restore">Oluştur</button>
+          </div>
+
+          <div class="tool-item-card">
+            <div class="tool-icon">&#128187;</div>
+            <div class="tool-info">
+              <h4>Windows Aygıt Yöneticisi</h4>
+              <p>Sistemdeki tüm donanımları doğrudan Windows konsolunda denetleyin.</p>
+            </div>
+            <button class="btn-tool" onclick="window.open('devmgmt.msc')">Aç</button>
+          </div>
+
+          <div class="tool-item-card">
+            <div class="tool-info">
+              <h4>Donanım Değişikliklerini Tara</h4>
+              <p>Yeni takılan veya çıkarılan tak-çalıştır cihazları yeniden algılayın.</p>
+            </div>
+            <button class="btn-tool" id="btn-rescan-hardware">Yenile</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: Yedekleme (Backup) -->
+      <section id="tab-backup" class="tab-pane">
+        <div class="backup-container">
+          <div class="backup-header">
+            <h3>Sürücü Yedekleme & Geri Yükleme</h3>
+            <p>Sisteminizdeki tüm 3. parti OEM sürücüleri tek tıkla dışarı aktarıp güvenli bir klasöre yedekleyin.</p>
+          </div>
+          <div class="backup-action-box">
+            <div class="backup-icon-large">&#128190;</div>
+            <button id="btn-run-backup" class="btn-primary-red btn-large">Tüm Sürücüleri Yedekle</button>
+            <div id="backup-status" class="backup-status-text"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal: Online Update Search & Install -->
+  <div id="update-modal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modal-title">Sürücü Güncellemesi</h3>
+        <button class="modal-close-btn" id="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-device-info" id="modal-device-desc">Seçilen Aygıt</div>
+        <div class="modal-search-wrapper">
+          <input type="text" id="modal-search-input" placeholder="Katalog arama terimi...">
+          <button id="modal-btn-search" class="btn-modal-search">Ara</button>
+        </div>
+        <div class="modal-status-text" id="modal-status">Microsoft Güncelleme Kataloğu taranıyor...</div>
+        <div class="modal-results-list" id="modal-results-list">
+          <!-- Dynamic Results -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
