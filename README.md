@@ -4,6 +4,15 @@ An open-source desktop utility designed to scan Windows hardware devices, detect
 
 ---
 
+## 💾 Download Windows Installer (Tıkla İndir)
+
+[![Download ReaPCBooster](https://img.shields.io/badge/Download-ReaPCBooster_v1.0.0_Setup-blue?style=for-the-badge&logo=windows)](https://github.com/xavierlayne/ReaPCBooster/releases/download/v1.0.0/ReaPCBooster-Setup-x64.exe)
+
+- **Doğrudan İndirme Bağlantısı (Direct Download):** [ReaPCBooster-Setup-x64.exe (v1.0.0)](https://github.com/xavierlayne/ReaPCBooster/releases/download/v1.0.0/ReaPCBooster-Setup-x64.exe)
+- **Tüm Sürümler (GitHub Releases):** [Releases](https://github.com/xavierlayne/ReaPCBooster/releases)
+
+---
+
 ## 🚀 Features
 
 - **Hardware & Driver Inspection:** Scans all hardware components via Windows Management Instrumentation (WMI) and flags drivers older than 2 years.
